@@ -14,6 +14,7 @@ gem 'devise'
 gem 'omniauth-facebook', '~> 4.0.0'
 gem "omniauth-google-oauth2"
 gem 'omniauth-zooniverse', '~> 0.0.3'
+gem 'activesupport', '~> 4.0', '>= 4.0.13'
 
 gem 'mongoid', '~> 4.0.2'
 gem 'active_model_serializers', '0.9.3'

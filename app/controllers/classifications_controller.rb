@@ -35,6 +35,8 @@ class ClassificationsController < ApplicationController
     end
 
     workflow_id = BSON::ObjectId.from_string workflow_id if ! workflow_id.nil?
+
+    Rails.logger = Logger.new(STDOUT)
     logger.info workflow_id
 
     # If user is a bot, consider creating the subject on the fly:

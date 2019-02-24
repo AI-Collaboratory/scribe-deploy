@@ -343,6 +343,7 @@ PLATFORMS
 DEPENDENCIES
   actionpack-action_caching
   active_model_serializers (= 0.9.3)
+  activesupport (~> 4.0, >= 4.0.13)
   aws-sdk (~> 2)
   better_errors
   binding_of_caller
