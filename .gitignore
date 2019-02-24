@@ -47,3 +47,7 @@ bower.json
 # Ignore node_modules
 node_modules/
 
+public/dcic_docs/*
+!public/dcic_docs/Mobile_AD
+.DS_Store
+
