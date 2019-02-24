@@ -12,7 +12,7 @@ set :deploy_to, '/home/deploy/Scribe'
 
 
 append :linked_files, "config/mongoid.yml", "config/secrets.yml"
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system", "public/uploads"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system", "public/uploads", "public/dcic_docs"
 
 
 # Default value for :format is :airbrussh.
