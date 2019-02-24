@@ -21,19 +21,7 @@ set :default_env, {
 append :linked_files, "config/mongoid.yml", "config/secrets.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system", "public/uploads"
 
-namespace :deploy do
-  before 'deploy:start', 'deploy:npm_install'
-  before 'deploy:restart', 'deploy:npm_install'
 
-  task :npm_install, :roles => :app, :except => { :no_release => true } do
-    run "cd #{applicationdir}/current/ && npm install"
-  end
-
-  task :npm_update, :roles => :app, :except => { :no_release => true } do
-    run "cd #{applicationdir}/current/ && npm update"
-  end
-
-end
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
