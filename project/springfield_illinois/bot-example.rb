@@ -4,7 +4,7 @@ require 'json'
 require 'cgi'
 
 city = "Springfield"
-url = "transcribe.ischool.umd.edu"
+url = "192.168.33.40:3000"
 
 # Useful extension to Hash to create query strings:
 class Hash
@@ -118,7 +118,7 @@ end
 #
 
 options = Hash[ ARGV.join(' ').scan(/--?([^=\s]+)(?:=(\S+))?/) ]
-options["scribe-endpoint"] = "https://"+ url + "/classifications" if ! options["scribe-endpoint"]
+options["scribe-endpoint"] = "http://"+ url + "/classifications" if ! options["scribe-endpoint"]
 
 args = ARGV.select { |a| ! a.match /^-/ }
 
