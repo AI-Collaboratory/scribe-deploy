@@ -35,6 +35,7 @@ class ClassificationsController < ApplicationController
     end
 
     workflow_id = BSON::ObjectId.from_string workflow_id if ! workflow_id.nil?
+    logger.info workflow_id
 
     # If user is a bot, consider creating the subject on the fly:
     if user.is_a?(BotUser) && subject_id.nil? && (standard_url = params["subject"]["location"]["standard"])

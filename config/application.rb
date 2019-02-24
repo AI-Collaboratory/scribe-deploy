@@ -10,6 +10,7 @@ require "sprockets/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
+config.logger = Logger.new(STDOUT)
 
 module API
   class Application < Rails::Application
