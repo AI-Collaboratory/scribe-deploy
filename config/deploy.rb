@@ -2,7 +2,7 @@
 lock "~> 3.11.0"
 
 set :application, "Scribe"
-set :repo_url, "git@github.com:UMD-DCIC/scribe-deploy.git"
+set :repo_url, "https://github.com/UMD-DCIC/scribe-deploy.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
