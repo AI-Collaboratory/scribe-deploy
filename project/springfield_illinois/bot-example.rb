@@ -4,7 +4,7 @@ require 'json'
 require 'cgi'
 
 city = "Springfield"
-url = "transcribe.ischool.umd.edu"
+url = "192.168.33.40:3000"
 
 # Useful extension to Hash to create query strings:
 class Hash
@@ -96,22 +96,16 @@ class ScribeBot
     require "net/http"
 
     uri = URI(@classifications_endpoint)
+  
+    req = Net::HTTP::Post.new(uri.path, {'BOT_AUTH' => ENV['SCRIBE_BOT_TOKEN']})
+    req.body = params.to_params 
+    http = Net::HTTP.new(uri.host, uri.port)
 
-    Net::HTTP.start(uri.host, uri.port,
-      :use_ssl => uri.scheme == 'https') do |http|
-      req = Net::HTTP::Post.new(uri.path, {'BOT_AUTH' => ENV['SCRIBE_BOT_TOKEN']})
-      req.body = params.to_params 
-
-      response = http.request req # Net::HTTPResponse object
-    end
+    response = http.start {|http| http.request(req) }
     
-    # http = Net::HTTP.new(uri.host, uri.port)
-    # http.use_ssl = true
-
-    # response = http.start {|http| http.request(req) }
-
     begin
       JSON.parse response.body
+
     rescue
       nil
     end
@@ -125,7 +119,7 @@ end
 #
 
 options = Hash[ ARGV.join(' ').scan(/--?([^=\s]+)(?:=(\S+))?/) ]
-options["scribe-endpoint"] = "https://"+ url + "/classifications" if ! options["scribe-endpoint"]
+options["scribe-endpoint"] = "http://"+ url + "/classifications" if ! options["scribe-endpoint"]
 
 args = ARGV.select { |a| ! a.match /^-/ }
 
@@ -168,7 +162,7 @@ paths.each do |path|
       # classification = classification['classification']
 
       # Response should contain a classification with a nested child_subject:
-      puts "Created classification: #{classification.to_json}"
+      # puts "Created classification: #{classification.to_json}"
     end      
 
     classification = bot.classify_subject_by_url( image_uri, "mark", "completion_assessment_task", {
