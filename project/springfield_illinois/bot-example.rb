@@ -4,7 +4,7 @@ require 'json'
 require 'cgi'
 
 city = "Springfield"
-url = "128.8.164.178"
+url = "transcribe.ischool.umd.edu"
 
 # Useful extension to Hash to create query strings:
 class Hash
