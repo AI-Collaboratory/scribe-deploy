@@ -96,15 +96,19 @@ class ScribeBot
     require "net/http"
 
     uri = URI(@classifications_endpoint)
-    
-    req = Net::HTTP::Post.new(uri.path, {'BOT_AUTH' => ENV['SCRIBE_BOT_TOKEN']})
-    req.use_ssl = true
-    req.body = params.to_params 
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-    response = http.start {|http| http.request(req) }
+    Net::HTTP.start(uri.host, uri.port,
+      :use_ssl => uri.scheme == 'https') do |http|
+      req = Net::HTTP::Post.new(uri.path, {'BOT_AUTH' => ENV['SCRIBE_BOT_TOKEN']})
+      req.body = params.to_params 
+
+      response = http.request req # Net::HTTPResponse object
+    end
+    
+    # http = Net::HTTP.new(uri.host, uri.port)
+    # http.use_ssl = true
+
+    # response = http.start {|http| http.request(req) }
 
     begin
       JSON.parse response.body
