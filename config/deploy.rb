@@ -10,6 +10,14 @@ set :repo_url, "https://github.com/UMD-DCIC/scribe-deploy.git"
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/home/deploy/Scribe'
 
+set :default_env, { 
+  'DEVISE_SECRET_TOKEN' => 'c34bf524720a12d6cdbf862d3d21bbfeade48362b6843c45796edb1a7c4d454657e2603efb2bce98a29180d9af16368e5c9006910fa4712373af8a01c76dc0e1',
+  'SECRET_KEY_BASE_TOKEN' => 'c34bf524720a12d6cdbf862d3d21bbfeade48362b6843c45796edb1a7c4d454657e2603efb2bce98a29180d9af16368e5c9006910fa4712373af8a01c76dc0e1',
+  'SCRIBE_BOT_TOKEN' => '5acd09095472610fd1000000:Eh1JksCK8zs1_6RNU6CD',
+  'FACEBOOK_ID' => '1689853631267050',
+  'FACEBOOK_SECRET' => 'b9133c1bf4cbe47e153954b1d0d13a5f'
+}
+
 append :linked_files, "config/mongoid.yml", "config/secrets.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system", "public/uploads"
 # Default value for :format is :airbrussh.
