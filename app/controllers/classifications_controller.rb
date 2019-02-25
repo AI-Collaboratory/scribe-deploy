@@ -3,8 +3,16 @@ class ClassificationsController < ApplicationController
   respond_to :json  
 
   def create
-    Rails.logger = Logger.new(STDOUT)
-    
+    Rails.logger = Logger.new(STDOUT)    
+    logger.info "STARTING LOOP..."
+
+    request.headers.each do |attr_name, attr_value|
+      logger.info attr_name
+      logger.info attr_value
+    end
+
+    logger.info "ENDING LOOP..."
+
     # Is it a bot?
     user = get_bot_user_from_request request
     logger.info user
