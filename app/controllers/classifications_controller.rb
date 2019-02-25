@@ -1,6 +1,6 @@
 class ClassificationsController < ApplicationController
   include ActionView::Helpers::TextHelper
-  respond_to :json
+  respond_to :json  
 
   def create
 
@@ -37,12 +37,14 @@ class ClassificationsController < ApplicationController
     workflow_id = BSON::ObjectId.from_string workflow_id if ! workflow_id.nil?
 
     Rails.logger = Logger.new(STDOUT)
-    logger.info workflow_id
+    logger.info 'Workflow ID: '+workflow_id
 
     # If user is a bot, consider creating the subject on the fly:
     if user.is_a?(BotUser) && subject_id.nil? && (standard_url = params["subject"]["location"]["standard"])
       subject_id = Subject.find_or_create_root_by_standard_url(standard_url).id
     end
+
+    logger.info 'Subject ID: '+subject_id
 
     h = {
       annotation: annotation,

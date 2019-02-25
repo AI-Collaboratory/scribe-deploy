@@ -1,5 +1,6 @@
 class Workflow
   include Mongoid::Document
+  Rails.logger = Logger.new(STDOUT)
 
   field    :name,                                            type: String
   #TODO: can we delete :key field? --AMS
@@ -52,6 +53,7 @@ class Workflow
     # the configured subject generation method:
     method = SubjectGenerationMethod.by_name classification.workflow.generates_subjects_method
     method.process_classification(classification)
+    logger.info classification
   end
 
   def next_workflow

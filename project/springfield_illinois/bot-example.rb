@@ -5,6 +5,7 @@ require 'cgi'
 
 city = "Springfield"
 url = "https://transcribe.ischool.umd.edu"
+# url = "http://192.168.33.40:3000"
 
 # Useful extension to Hash to create query strings:
 class Hash
@@ -164,11 +165,13 @@ paths.each do |path|
 
       # Response should contain a classification with a nested child_subject:
       # puts "Created classification: #{classification.to_json}"
-    end      
+      break      
+    end     
 
     classification = bot.classify_subject_by_url( image_uri, "mark", "completion_assessment_task", {
       value: "complete_subject"
     })['classification']
+    break
   end
   
 end
