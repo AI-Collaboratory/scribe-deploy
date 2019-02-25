@@ -39,6 +39,10 @@ class ClassificationsController < ApplicationController
     Rails.logger = Logger.new(STDOUT)
     logger.info 'Workflow ID: '+workflow_id
 
+    logger.info user.is_a?(BotUser)
+    logger.info subject_id.nil?
+    logger.info params["subject"]["location"]["standard"]
+
     # If user is a bot, consider creating the subject on the fly:
     if user.is_a?(BotUser) && subject_id.nil? && (standard_url = params["subject"]["location"]["standard"])
       subject_id = Subject.find_or_create_root_by_standard_url(standard_url).id
