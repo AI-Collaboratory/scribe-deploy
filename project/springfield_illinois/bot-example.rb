@@ -165,14 +165,12 @@ paths.each do |path|
       # classification = classification['classification']
 
       # Response should contain a classification with a nested child_subject:
-      # puts "Created classification: #{classification.to_json}"
-      break      
+      puts "Created classification: #{classification.to_json}"
     end     
 
     classification = bot.classify_subject_by_url( image_uri, "mark", "completion_assessment_task", {
       value: "complete_subject"
-    })['classification']
-    break
+    })['classification']    
   end
   
 end

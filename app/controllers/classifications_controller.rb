@@ -3,15 +3,13 @@ class ClassificationsController < ApplicationController
   respond_to :json  
 
   def create
-    Rails.logger = Logger.new(STDOUT)    
-    # logger.info request.header['HTTP_BOTAUTH']
-
-    request.headers.each do |attr_name, attr_value|
-      logger.info attr_name
-      logger.info attr_value
-    end
-
-    logger.info "ENDING LOOP..."
+    # For debugging...
+    # Rails.logger = Logger.new(STDOUT)        
+    # request.headers.each do |attr_name, attr_value|
+    #   logger.info attr_name
+    #   logger.info attr_value
+    # end
+    # logger.info "ENDING LOOP..."
 
     # Is it a bot?
     user = get_bot_user_from_request request
