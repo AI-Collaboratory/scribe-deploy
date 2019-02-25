@@ -10,6 +10,7 @@ require 'capistrano/rvm'
 require 'capistrano/npm'
 set :rvm_type, :user
 set :rvm_ruby_version, '2.2.0'
+set :rvm_ruby_string, '2.2.0@Scribe'
 # Load the SCM plugin appropriate to your project:
 #
 # require "capistrano/scm/hg"
