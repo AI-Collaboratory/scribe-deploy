@@ -33,13 +33,16 @@ class BotUser < User
   def self.by_auth(headers)
     Rails.logger = Logger.new(STDOUT)
     logger.info "BY_AUTH function..."
+    logger.info headers[AUTH_HEADER]
+    logger.info headers['BOT_AUTH']
+    logger.info headers['HTTP_BOT_AUTH']
+    logger.info headers[AUTH_HEADER].blank?
     
     # No header? Fail.
     return nil if headers[AUTH_HEADER].blank?
 
     # Fail if header doesn't have two values:
-    parts = unpack_auth_header headers[AUTH_HEADER]    
-    logger.info parts.size
+    parts = unpack_auth_header headers[AUTH_HEADER]        
     return nil if parts.size != 2
 
     # Get user by name and auth using token:
