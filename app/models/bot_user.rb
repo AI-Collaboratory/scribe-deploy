@@ -1,6 +1,6 @@
 class BotUser < User
 
-  AUTH_HEADER = 'HTTP_BOT_AUTH'
+  AUTH_HEADER = 'HTTP_BOTAUTH'
 
   # Create bot user with name
   def self.create(name)
@@ -31,12 +31,6 @@ class BotUser < User
 
   # Given hash of headers, return bot user if a header authenticates
   def self.by_auth(headers)
-    Rails.logger = Logger.new(STDOUT)
-    logger.info "BY_AUTH function..."
-    logger.info headers[AUTH_HEADER]
-    logger.info headers['BOT_AUTH']
-    logger.info headers['HTTP_BOT_AUTH']
-    logger.info headers[AUTH_HEADER].blank?
     
     # No header? Fail.
     return nil if headers[AUTH_HEADER].blank?
@@ -47,8 +41,6 @@ class BotUser < User
 
     # Get user by name and auth using token:
     user = find parts[0]
-    logger.info user
-    logger.info parts[1]
     return nil if ! user.valid_password? parts[1]
 
     user

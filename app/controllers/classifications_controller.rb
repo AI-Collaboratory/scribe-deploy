@@ -4,7 +4,7 @@ class ClassificationsController < ApplicationController
 
   def create
     Rails.logger = Logger.new(STDOUT)    
-    logger.info "STARTING LOOP..."
+    # logger.info request.header['HTTP_BOTAUTH']
 
     request.headers.each do |attr_name, attr_value|
       logger.info attr_name
@@ -15,11 +15,7 @@ class ClassificationsController < ApplicationController
 
     # Is it a bot?
     user = get_bot_user_from_request request
-    logger.info user
-
     user = require_user! if user.nil?
-
-    logger.info user
 
     workflow_id      = params["classifications"]["workflow_id"] ? params["classifications"]["workflow_id"] : nil
     task_key         = params["classifications"]["task_key"]
@@ -48,19 +44,10 @@ class ClassificationsController < ApplicationController
 
     workflow_id = BSON::ObjectId.from_string workflow_id if ! workflow_id.nil?
 
-    
-    logger.info 'Workflow ID: '+workflow_id
-
-    logger.info user.is_a?(BotUser)
-    logger.info subject_id.nil?
-    logger.info params["subject"]["location"]["standard"]
-
     # If user is a bot, consider creating the subject on the fly:
     if user.is_a?(BotUser) && subject_id.nil? && (standard_url = params["subject"]["location"]["standard"])
       subject_id = Subject.find_or_create_root_by_standard_url(standard_url).id
     end
-
-    logger.info 'Subject ID: '+subject_id
 
     h = {
       annotation: annotation,

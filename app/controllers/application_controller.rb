@@ -10,10 +10,7 @@ class ApplicationController < ActionController::Base
     current_or_guest_user(create_if_missing = true)
   end
 
-  def get_bot_user_from_request(request)
-    Rails.logger = Logger.new(STDOUT)
-    logger.info "get_bot_user_from_request function..."
-    logger.info request.headers['HTTP_BOT_AUTH']
+  def get_bot_user_from_request(request)    
     BotUser.by_auth request.headers
   end
 
