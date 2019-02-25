@@ -11,6 +11,9 @@ class ApplicationController < ActionController::Base
   end
 
   def get_bot_user_from_request(request)
+    Rails.logger = Logger.new(STDOUT)
+    logger.info "get_bot_user_from_request function..."
+    logger.info request.headers['HTTP_BOT_AUTH']
     BotUser.by_auth request.headers
   end
 
