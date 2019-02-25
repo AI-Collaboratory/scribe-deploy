@@ -3,11 +3,15 @@ class ClassificationsController < ApplicationController
   respond_to :json  
 
   def create
+    Rails.logger = Logger.new(STDOUT)
 
     # Is it a bot?
     user = get_bot_user_from_request request
+    logger.info user
 
     user = require_user! if user.nil?
+
+    logger.info user
 
     workflow_id      = params["classifications"]["workflow_id"] ? params["classifications"]["workflow_id"] : nil
     task_key         = params["classifications"]["task_key"]
@@ -36,7 +40,7 @@ class ClassificationsController < ApplicationController
 
     workflow_id = BSON::ObjectId.from_string workflow_id if ! workflow_id.nil?
 
-    Rails.logger = Logger.new(STDOUT)
+    
     logger.info 'Workflow ID: '+workflow_id
 
     logger.info user.is_a?(BotUser)
