@@ -4,7 +4,7 @@ class ClassificationsController < ApplicationController
 
   def create
     Rails.logger = Logger.new(STDOUT)
-
+    
     # Is it a bot?
     user = get_bot_user_from_request request
     logger.info user

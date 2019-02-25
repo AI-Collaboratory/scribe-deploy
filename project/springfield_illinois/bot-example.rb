@@ -4,8 +4,8 @@ require 'json'
 require 'cgi'
 
 city = "Springfield"
-url = "https://transcribe.ischool.umd.edu"
-# url = "http://192.168.33.40:3000"
+# url = "https://transcribe.ischool.umd.edu"
+url = "http://192.168.33.40:3000"
 
 # Useful extension to Hash to create query strings:
 class Hash
@@ -97,11 +97,15 @@ class ScribeBot
     require "net/http"
 
     uri = URI(@classifications_endpoint)
-  
-    req = Net::HTTP::Post.new(uri.path, {'BOT_AUTH' => ENV['SCRIBE_BOT_TOKEN']})
-    req.body = params.to_params 
+    puts uri
+    puts uri.path
+    req = Net::HTTP::Post.new(uri, {'BOT_AUTH' => ENV['SCRIBE_BOT_TOKEN']})
+    puts req
+
+    req.body = params.to_params     
     http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
+    http.set_debug_output($stdout)
+    # http.use_ssl = true
 
     response = http.start {|http| http.request(req) }
     

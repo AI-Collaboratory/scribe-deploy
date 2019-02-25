@@ -31,15 +31,21 @@ class BotUser < User
 
   # Given hash of headers, return bot user if a header authenticates
   def self.by_auth(headers)
+    Rails.logger = Logger.new(STDOUT)
+    logger.info "BY_AUTH function..."
+    
     # No header? Fail.
     return nil if headers[AUTH_HEADER].blank?
 
     # Fail if header doesn't have two values:
-    parts = unpack_auth_header headers[AUTH_HEADER]
+    parts = unpack_auth_header headers[AUTH_HEADER]    
+    logger.info parts.size
     return nil if parts.size != 2
 
     # Get user by name and auth using token:
     user = find parts[0]
+    logger.info user
+    logger.info parts[1]
     return nil if ! user.valid_password? parts[1]
 
     user
